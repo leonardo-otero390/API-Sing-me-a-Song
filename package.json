@@ -5,9 +5,9 @@
   "description": "Sing me a song is an API for anonymous song recommendation",
   "main": "index.js",
   "scripts": {
+    "start": "NODE_ENV=prod node ./src/server.js",
     "test": "NODE_ENV=test npx jest",
-    "test:watch": "NODE_ENV=test npx jest --watch",
-    "start": "NODE_ENV=test npx nodemon ./src/server.js"
+    "test:watch": "NODE_ENV=test npx jest --watch"
   },
   "author": "Leonardo Bittencourt Otero",
   "license": "ISC",
