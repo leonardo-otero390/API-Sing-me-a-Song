@@ -16,7 +16,7 @@ API sing me a Song é uma API desenvolvida em node.js com a função de recomend
 
 4 - Crie um banco de dados e rode o script do arquivo dump.sql
 
-Há quatro scripts:
+Há 5 (cinco) scripts:
 
 para rodar a API em modo de <strong>produção</strong> use: (necessário ter um arquivo .env)
 
