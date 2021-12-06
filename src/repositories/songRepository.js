@@ -10,7 +10,7 @@ async function findSongById(id) {
   const result = await connection.query(`SELECT * FROM songs WHERE id=$1;`, [
     id,
   ]);
-  if (!result.rowCount) throw new Error('Not found');
+  if (!result.rowCount) return false;
   return result.rows[0];
 }
 async function updateSongScore({ id, newScore }) {

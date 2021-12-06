@@ -2,6 +2,7 @@ import * as songRepository from '../repositories/songRepository.js';
 
 async function updateSongScore({ id, isPositivePoint }) {
   const updatingSong = await songRepository.findSongById(id);
+  if (!updatingSong) throw new Error('Not found');
   let newScore;
   if (isPositivePoint) {
     newScore = updatingSong.score + 1;
