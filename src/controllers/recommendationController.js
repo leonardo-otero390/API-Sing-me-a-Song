@@ -51,4 +51,21 @@ async function getRandomSong(req, res) {
     return res.sendStatus(500);
   }
 }
-export { insertNewRecommendation, upVoteSong, downVoteSong, getRandomSong };
+async function getSongsRanked(req, res) {
+  const { amount } = req.params;
+  try {
+    const rank = await recommendationService.rankTopSongs(amount);
+    return res.send({ rank });
+  } catch (error) {
+    if (error.message === 'Bad request') return res.sendStatus(400);
+    if (error.message === 'Not found') return res.sendStatus(404);
+    return res.sendStatus(500);
+  }
+}
+export {
+  insertNewRecommendation,
+  upVoteSong,
+  downVoteSong,
+  getRandomSong,
+  getSongsRanked,
+};

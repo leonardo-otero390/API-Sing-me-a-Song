@@ -28,5 +28,10 @@ async function getRandomSong(preference) {
   if (!song) throw new Error('Not found');
   return song;
 }
-
-export { updateSongScore, getRandomSong };
+async function rankTopSongs(amount) {
+  if (!amount || amount < 0) throw new Error('Bad request');
+  const rank = await songRepository.findBestSongs(amount);
+  if (!rank) throw new Error('Not found');
+  return rank;
+}
+export { updateSongScore, getRandomSong, rankTopSongs };

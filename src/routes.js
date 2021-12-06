@@ -13,5 +13,6 @@ routes.post(
 routes.post('/recommendations/:id/upvote', recommendationController.upVoteSong);
 routes.post('/recommendations/:id/downvote',recommendationController.downVoteSong);
 routes.get('/recommendations/random', recommendationController.getRandomSong);
+routes.get('/recommendations/top/:amount', recommendationController.getSongsRanked);
 
 export default routes;

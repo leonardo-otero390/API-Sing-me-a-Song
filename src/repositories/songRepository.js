@@ -43,6 +43,13 @@ async function getRandomSong() {
   if (!result.rowCount) return false;
   return result.rows[0];
 }
+async function findBestSongs(amount){
+  const result = await connection.query(
+    `SELECT * FROM songs ORDER BY score DESC LIMIT $1;`,[amount]
+  );
+  if (!result.rowCount) return false;
+  return result.rows;
+}
 export {
   insertNewSong,
   findSongById,
@@ -50,5 +57,6 @@ export {
   deleteSong,
   getRandomPopularSong,
   getRandomNotPopularSong,
-  getRandomSong
+  getRandomSong,
+  findBestSongs
 };
