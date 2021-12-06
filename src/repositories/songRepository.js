@@ -22,4 +22,33 @@ async function updateSongScore({ id, newScore }) {
 async function deleteSong(id) {
   await connection.query(`DELETE FROM songs WHERE id=$1 RETURNING *;`, [id]);
 }
-export { insertNewSong, findSongById, updateSongScore, deleteSong };
+async function getRandomPopularSong() {
+  const result = await connection.query(
+    `SELECT * FROM songs WHERE score>9 ORDER BY RANDOM() LIMIT 1;`
+  );
+  if (!result.rowCount) return false;
+  return result.rows[0];
+}
+async function getRandomNotPopularSong() {
+  const result = await connection.query(
+    `SELECT * FROM songs WHERE score<10 ORDER BY RANDOM() LIMIT 1;`
+  );
+  if (!result.rowCount) return false;
+  return result.rows[0];
+}
+async function getRandomSong() {
+  const result = await connection.query(
+    `SELECT * FROM songs ORDER BY RANDOM() LIMIT 1;`
+  );
+  if (!result.rowCount) return false;
+  return result.rows[0];
+}
+export {
+  insertNewSong,
+  findSongById,
+  updateSongScore,
+  deleteSong,
+  getRandomPopularSong,
+  getRandomNotPopularSong,
+  getRandomSong
+};

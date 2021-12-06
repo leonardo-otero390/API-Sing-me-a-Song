@@ -6,7 +6,12 @@ const routes = new Router();
 routes.get('/health', async (req, res) => {
   res.sendStatus(200);
 });
-routes.post('/recommendations', recommendationController.insertNewRecommendation);
+routes.post(
+  '/recommendations',
+  recommendationController.insertNewRecommendation
+);
 routes.post('/recommendations/:id/upvote', recommendationController.upVoteSong);
-routes.post('/recommendations/:id/downvote', recommendationController.downVoteSong);
+routes.post('/recommendations/:id/downvote',recommendationController.downVoteSong);
+routes.get('/recommendations/random', recommendationController.getRandomSong);
+
 export default routes;

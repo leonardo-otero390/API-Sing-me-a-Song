@@ -40,4 +40,15 @@ async function downVoteSong(req, res) {
   }
   return res.sendStatus(200);
 }
-export { insertNewRecommendation, upVoteSong, downVoteSong };
+async function getRandomSong(req, res) {
+  const number = Math.floor(Math.random() * 100);
+  const preference = number >= 69 ? 'popular' : 'notPopular';
+  try {
+    const song = await recommendationService.getRandomSong(preference);
+    return res.send(song);
+  } catch (error) {
+    if (error.message === 'Not found') return res.sendStatus(404);
+    return res.sendStatus(500);
+  }
+}
+export { insertNewRecommendation, upVoteSong, downVoteSong, getRandomSong };

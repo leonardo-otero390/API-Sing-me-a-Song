@@ -14,4 +14,19 @@ async function updateSongScore({ id, isPositivePoint }) {
     await songRepository.deleteSong(id);
   }
 }
-export { updateSongScore };
+
+async function getRandomSong(preference) {
+  let song;
+  if (preference === 'popular') {
+    song = await songRepository.getRandomPopularSong();
+  } else {
+    song = await songRepository.getRandomNotPopularSong();
+  }
+  if (!song) {
+    song = await songRepository.getRandomSong();
+  }
+  if (!song) throw new Error('Not found');
+  return song;
+}
+
+export { updateSongScore, getRandomSong };
