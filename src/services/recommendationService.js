@@ -8,6 +8,10 @@ async function updateSongScore({ id, isPositivePoint }) {
   } else {
     newScore = updatingSong.score - 1;
   }
-  await songRepository.updateSongScore({ id, newScore });
+  if (newScore > -6) {
+    await songRepository.updateSongScore({ id, newScore });
+  } else {
+    await songRepository.deleteSong(id);
+  }
 }
 export { updateSongScore };

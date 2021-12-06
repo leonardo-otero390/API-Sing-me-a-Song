@@ -8,4 +8,5 @@ routes.get('/health', async (req, res) => {
 });
 routes.post('/recommendations', recommendationController.insertNewRecommendation);
 routes.post('/recommendations/:id/upvote', recommendationController.upVoteSong);
+routes.post('/recommendations/:id/downvote', recommendationController.downVoteSong);
 export default routes;

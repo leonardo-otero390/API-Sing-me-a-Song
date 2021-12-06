@@ -3,7 +3,6 @@
         "**/.babelrc.json": true,
         "**/.env.*": true,
         "**/.husky": true,
-        "**/.prettierrc.json": true,
         "**/.vscode": true,
         "**/coverage": true
     }

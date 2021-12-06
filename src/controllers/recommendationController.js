@@ -29,4 +29,15 @@ async function upVoteSong(req, res) {
   }
   return res.sendStatus(200);
 }
-export { insertNewRecommendation, upVoteSong };
+async function downVoteSong(req, res) {
+  const { id } = req.params;
+  const isPositivePoint = false;
+  try {
+    await recommendationService.updateSongScore({ id, isPositivePoint });
+  } catch (error) {
+    if (error.message === 'Not found') return res.sendStatus(404);
+    return res.sendStatus(500);
+  }
+  return res.sendStatus(200);
+}
+export { insertNewRecommendation, upVoteSong, downVoteSong };

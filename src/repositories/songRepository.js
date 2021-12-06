@@ -14,9 +14,12 @@ async function findSongById(id) {
   return result.rows[0];
 }
 async function updateSongScore({ id, newScore }) {
-  await connection.query(`UPDATE songs SET score = $1 WHERE id=$2`, [
+  await connection.query(`UPDATE songs SET score = $1 WHERE id=$2;`, [
     newScore,
     id,
   ]);
 }
-export { insertNewSong, findSongById, updateSongScore };
+async function deleteSong(id) {
+  await connection.query(`DELETE FROM songs WHERE id=$1 RETURNING *;`, [id]);
+}
+export { insertNewSong, findSongById, updateSongScore, deleteSong };
