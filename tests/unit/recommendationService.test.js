@@ -37,40 +37,60 @@ describe('Get songs ranked by amount', () => {
   });
 });
 describe('Get random songs', () => {
-    const song = {
-      id: 150,
-      name: 'Chitãozinho E Xororó - Evidências',
-      youtubeLink: 'https://www.youtube.com/watch?v=ePjtnSPFWK',
-      score: 0,
-    };
+  const song = {
+    id: 150,
+    name: 'Chitãozinho E Xororó - Evidências',
+    youtubeLink: 'https://www.youtube.com/watch?v=ePjtnSPFWK',
+    score: 0,
+  };
   it('should answer with popular song', async () => {
-      song.score=10;
+    song.score = 10;
     jest
       .spyOn(songRepository, 'getRandomPopularSong')
       .mockImplementationOnce(() => song);
     const promise = await recommendationService.getRandomSong('popular');
-     expect(promise.score).toBeGreaterThan(9);
+    expect(promise.score).toBeGreaterThan(9);
   });
 
   it('should answer with not popular song', async () => {
-    song.score=9;
+    song.score = 9;
     jest
       .spyOn(songRepository, 'getRandomNotPopularSong')
       .mockImplementationOnce(() => song);
     const promise = await recommendationService.getRandomSong('notPopular');
-     expect(promise.score).toBeLessThan(10);
+    expect(promise.score).toBeLessThan(10);
   });
 
   it('should answer any song when popular or notPopular arent available', async () => {
-    jest.spyOn(songRepository, 'getRandomPopularSong').mockImplementationOnce(() => false);
-    jest.spyOn(songRepository, 'getRandomSong').mockImplementationOnce(() => song);
+    jest
+      .spyOn(songRepository, 'getRandomPopularSong')
+      .mockImplementationOnce(() => false);
+    jest
+      .spyOn(songRepository, 'getRandomSong')
+      .mockImplementationOnce(() => song);
     const promise = await recommendationService.getRandomSong('popular');
-     expect(typeof(promise)).toEqual('object');
+    expect(typeof promise).toEqual('object');
   });
   it('should Not found', async () => {
-    jest.spyOn(songRepository, 'getRandomPopularSong').mockImplementationOnce(() => false);
-    jest.spyOn(songRepository, 'getRandomSong').mockImplementationOnce(() => false);
+    jest
+      .spyOn(songRepository, 'getRandomPopularSong')
+      .mockImplementationOnce(() => false);
+    jest
+      .spyOn(songRepository, 'getRandomSong')
+      .mockImplementationOnce(() => false);
     const promise = recommendationService.getRandomSong('popular');
+    await expect(promise).rejects.toThrowError('Not found');
+  });
+});
+describe('updateSongScore function', () => {
+  it('should return Not found error', async () => {
+    jest
+      .spyOn(songRepository, 'findSongById')
+      .mockImplementationOnce(() => false);
+    const promise = recommendationService.updateSongScore({
+      id: 1,
+      isPositivePoint: true,
+    });
     await expect(promise).rejects.toThrowError('Not found');
   });
 });
