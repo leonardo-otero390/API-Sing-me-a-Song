@@ -11,7 +11,6 @@
         "sourceType": "module"
     },
     "rules": {
-        "quotes":"warn",
         "import/prefer-default-export": "off",
         "import/extensions": [
         "error",
@@ -20,5 +19,18 @@
         }
        ]
     },
-    "ignorePatterns": ["*.test.js"]
+    "overrides": [
+        {
+            "files": "src/repositories/*.js",
+            "rules": {
+                "quotes":"warn"
+            }
+          },
+          {
+            "files": "*test.js",
+            "rules": {
+                "no-undef":"off"
+            }
+          }
+    ]
 }
