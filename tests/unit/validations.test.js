@@ -1,4 +1,3 @@
-import '../../src/setup.js';
 import * as recommendationValidation from '../../src/validations/recommendationValidation.js';
 
 describe('recommendation validation suit', () => {
